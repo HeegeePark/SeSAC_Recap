@@ -10,3 +10,9 @@ import Foundation
 protocol Reusable: AnyObject {
     static var identifier: String { get }
 }
+
+extension Reusable {
+    static var identifier: String {
+        return String(describing: self)
+    }
+}

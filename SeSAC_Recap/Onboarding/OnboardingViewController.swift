@@ -18,6 +18,10 @@ class OnboardingViewController: UIViewController {
         
         configureView()
     }
+    
+    @objc func startButtonTapped() {
+        pushViewController(storyboardToPushIdentifier: StoryboardId.profile, viewControllerToPush: ProfileViewController.self, isNeedNavigationController: false)
+    }
 }
 
 extension OnboardingViewController {
@@ -35,5 +39,6 @@ extension OnboardingViewController {
         startButton.setTitleColor(.text, for: .normal)
         startButton.backgroundColor = .point
         startButton.setCornerRadius()
+        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
 }

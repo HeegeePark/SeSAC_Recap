@@ -23,7 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let vc = UIStoryboard(name: "Onboarding", bundle: nil)
             .instantiateViewController(withIdentifier: OnboardingViewController.identifier)
         
-        window.rootViewController = vc
+        let nav = UINavigationController(rootViewController: vc)
+        
+        window.rootViewController = nav
         window.makeKeyAndVisible()
     }
 

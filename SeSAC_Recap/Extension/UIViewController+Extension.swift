@@ -7,11 +7,18 @@
 
 import UIKit
 
-extension UIViewController: Reusable {
-    static var identifier: String {
-        return String(describing: self)
+extension UIViewController {
+    func pushViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToPush viewController: T.Type, isNeedNavigationController: Bool) {
+        let sb = storyboard != nil ? UIStoryboard(name: storyboard!, bundle: nil): self.storyboard
+        guard let vc = sb?.instantiateViewController(withIdentifier: T.identifier) as? T else { return }
+        
+        let vcToPush = isNeedNavigationController ? UINavigationController(rootViewController: vc): vc
+        
+        navigationController?.pushViewController(vcToPush, animated: true)
     }
 }
+
+extension UIViewController: Reusable {}
 
 extension UIViewController: UIViewControllerConfiguration {
     func configureView() {
@@ -23,7 +30,6 @@ extension UIViewController: UIViewControllerConfiguration {
 
 /*
  - 디자인하는 VC 파일 하단에 Preview 구조체 넣어주기
- - ㅍㅊ
  
  // MARK: - Preview
  import SwiftUI
