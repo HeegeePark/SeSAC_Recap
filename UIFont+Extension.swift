@@ -47,4 +47,8 @@ extension UIFont {
     static var sf17Bold : UIFont {
         return .systemFont(ofSize: 17, weight: .bold)
     }
+    
+    static var sf19Bold : UIFont {
+        return .systemFont(ofSize: 19, weight: .bold)
+    }
 }
