@@ -9,7 +9,7 @@ import UIKit
 
 extension UIColor {
     static var point: UIColor {
-        return UIColor(red: 73, green: 220, blue: 146, alpha: 1)
+        return UIColor(red: 73.divided255, green: 220.divided255, blue: 146.divided255, alpha: 1)
     }
     
     static var background: UIColor {
