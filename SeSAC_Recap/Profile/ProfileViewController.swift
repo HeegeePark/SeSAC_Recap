@@ -61,15 +61,15 @@ extension ProfileViewController {
         cameraImageView.contentMode = .scaleAspectFill
         cameraImageView.setCornerRadius(style: .circle(cameraImageView))
         
-        
         // 닉네임 텍스트필드
+        // TODO: left padding 안먹힘 해결
         nicknameTextField.ckDelegate = self
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
         nicknameTextField.validBorderColor = .point
         nicknameTextField.invalidBorderColor = .red
         nicknameTextField.inactiveColor = .lightGray
         nicknameTextField.textColor = .white
-        
+//        nicknameTextField.setLeftView(inset: 20)
         
         
         // 완료 버튼

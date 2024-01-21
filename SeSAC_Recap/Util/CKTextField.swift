@@ -186,7 +186,6 @@ protocol CKTextFieldDelegate: AnyObject {
         }
     }
     
-    
     private func layoutPlaceholderInTextRect() {
         
         let textRect = self.textRect(forBounds: bounds)
