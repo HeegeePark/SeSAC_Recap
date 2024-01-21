@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension UIViewController: Reusable {}
+
 extension UIViewController {
     func pushViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToPush viewController: T.Type, isNeedNavigationController: Bool) {
         let sb = storyboard != nil ? UIStoryboard(name: storyboard!, bundle: nil): self.storyboard
@@ -16,13 +18,41 @@ extension UIViewController {
         
         navigationController?.pushViewController(vcToPush, animated: true)
     }
+    
+    @objc func popViewcontroller() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func keyboardDismiss(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
 }
 
-extension UIViewController: Reusable {}
+// MARK: - view Configuration 관련
 
 extension UIViewController: UIViewControllerConfiguration {
     func configureView() {
         view.backgroundColor = .background
+        
+        // keyboardDismiss 탭제스처 등록
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardDismiss)))
+    }
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white,
+                                                                   .font: UIFont.sf19Bold]
+    }
+    
+    func setBackButtonInNavigationBar() {
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popViewcontroller))
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
+    func configureTableView() {
+    }
+    
+    func configureCollectionView() {
     }
 }
 
@@ -31,9 +61,10 @@ extension UIViewController: UIViewControllerConfiguration {
 /*
  - 디자인하는 VC 파일 하단에 Preview 구조체 넣어주기
  
- // MARK: - Preview
  import SwiftUI
+ // MARK: - Preview
 
+ import SwiftUI
  struct PreView: PreviewProvider {
      static var previews: some View {
          let vc = UIStoryboard(name: "$storyboardName", bundle: nil)

@@ -15,16 +15,85 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzg-zx-ahC">
+                                <rect key="frame" x="147.33333333333334" y="103" width="98.333333333333343" height="97.333333333333314"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DKy-EM-pxi">
+                                        <rect key="frame" x="0.0" y="0.0" width="98.333333333333329" height="97.333333333333329"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0DH-Pf-GDD">
+                                        <rect key="frame" x="68.666666666666657" y="68" width="29.666666666666671" height="29.333333333333329"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="0DH-Pf-GDD" secondAttribute="height" multiplier="1:1" id="Jby-uO-Gww"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="DKy-EM-pxi" firstAttribute="leading" secondItem="kzg-zx-ahC" secondAttribute="leading" id="5j9-d3-kFB"/>
+                                    <constraint firstAttribute="trailing" secondItem="DKy-EM-pxi" secondAttribute="trailing" id="Cm5-jl-BQR"/>
+                                    <constraint firstItem="0DH-Pf-GDD" firstAttribute="width" secondItem="kzg-zx-ahC" secondAttribute="width" multiplier="0.3" id="Iaa-2A-o2I"/>
+                                    <constraint firstAttribute="bottom" secondItem="DKy-EM-pxi" secondAttribute="bottom" id="UX0-Bv-ZFh"/>
+                                    <constraint firstAttribute="width" secondItem="kzg-zx-ahC" secondAttribute="height" multiplier="129:128" id="gQf-tn-bvB"/>
+                                    <constraint firstAttribute="bottom" secondItem="0DH-Pf-GDD" secondAttribute="bottom" id="vxJ-fQ-BzV"/>
+                                    <constraint firstAttribute="trailing" secondItem="0DH-Pf-GDD" secondAttribute="trailing" id="zSy-en-3tp"/>
+                                    <constraint firstItem="DKy-EM-pxi" firstAttribute="top" secondItem="kzg-zx-ahC" secondAttribute="top" id="zdT-mu-gNt"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hkO-M5-ezz" customClass="CKTextField" customModule="SeSAC_Recap" customModuleProvider="target">
+                                <rect key="frame" x="16" y="244.33333333333337" width="361" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZdN-KI-otA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cuX-eI-ge0">
+                                <rect key="frame" x="16" y="354.33333333333331" width="361" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="H29-sf-qhz"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kzg-zx-ahC" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="44" id="WAl-W1-tj9"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="hkO-M5-ezz" secondAttribute="trailing" constant="16" id="Xg4-gc-hcY"/>
+                            <constraint firstItem="hkO-M5-ezz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="XgL-FB-54i"/>
+                            <constraint firstItem="kzg-zx-ahC" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.25" id="ncN-nI-ZsM"/>
+                            <constraint firstItem="cuX-eI-ge0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="u4K-KS-zva"/>
+                            <constraint firstItem="kzg-zx-ahC" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="uFx-no-Ecs"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cuX-eI-ge0" secondAttribute="trailing" constant="16" id="vKx-8j-Bi1"/>
+                            <constraint firstItem="cuX-eI-ge0" firstAttribute="top" secondItem="hkO-M5-ezz" secondAttribute="bottom" constant="60" id="vPP-Nx-Jge"/>
+                            <constraint firstItem="hkO-M5-ezz" firstAttribute="top" secondItem="kzg-zx-ahC" secondAttribute="bottom" constant="44" id="wRg-X7-aKe"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IN7-0a-vwu"/>
+                    <connections>
+                        <outlet property="cameraImageView" destination="0DH-Pf-GDD" id="qJe-AP-5V0"/>
+                        <outlet property="doneButton" destination="cuX-eI-ge0" id="mzA-dI-fA9"/>
+                        <outlet property="nicknameTextField" destination="hkO-M5-ezz" id="nDd-al-TvE"/>
+                        <outlet property="profileImageView" destination="DKy-EM-pxi" id="o7k-dg-oxa"/>
+                        <outlet property="profileImageViewArea" destination="kzg-zx-ahC" id="yG0-Yo-nL9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="866.41221374045801" y="33.802816901408455"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="hkO-M5-ezz">
+            <size key="intrinsicContentSize" width="18" height="34"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
