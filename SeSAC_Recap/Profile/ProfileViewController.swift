@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
     // 프로필 이미지 영역 탭했을 때
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
         // TODO: 프로필 이미지 설정 화면 이동
-        print("image")
+        pushViewController(storyboardToPushIdentifier: nil, viewControllerToPush: ProfileImageViewController.self, isNeedNavigationController: false)
     }
     
     @objc func doneButonTapped(_ sender: UIButton) {
@@ -63,10 +63,8 @@ extension ProfileViewController {
         
         
         // 닉네임 텍스트필드
-        // TODO: CKTextField에서 조건처리 로직 추가
         nicknameTextField.ckDelegate = self
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
-//        nicknameTextField.conditionRegex = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z_!^&*()+-=?'\"\']{2,9}$"
         nicknameTextField.validBorderColor = .point
         nicknameTextField.invalidBorderColor = .red
         nicknameTextField.inactiveColor = .lightGray
@@ -94,6 +92,7 @@ extension ProfileViewController {
     }
 }
 
+// MARK: - CKTextFieldDelegate
 extension ProfileViewController: CKTextFieldDelegate {
     func ckTextField(textToCheckCondition text: String) -> (isValid: Bool, placeholderToAppear: String) {
         doneButton.isEnabled = false
@@ -119,14 +118,5 @@ extension ProfileViewController: CKTextFieldDelegate {
         
         doneButton.isEnabled = true
         return (true, "사용할 수 있는 닉네임이에요")
-    }
-}
-
-import SwiftUI
-struct PreView: PreviewProvider {
-    static var previews: some View {
-        let vc = UIStoryboard(name: "Profile", bundle: nil)
-            .instantiateViewController(withIdentifier: ProfileViewController.identifier)
-        vc.toPreview()
     }
 }
