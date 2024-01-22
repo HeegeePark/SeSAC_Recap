@@ -33,15 +33,15 @@ class ProfileViewController: UIViewController {
     
     // 프로필 이미지 영역 탭했을 때
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: ProfileImageViewController.identifier) as! ProfileImageViewController
+        let vc = loadViewController(storyboardToPushIdentifier: nil, viewControllerToChange: ProfileImageViewController.self)
         vc.delegate = self
         vc.setCurrentImage(imageIndex: profileImageIndex - 1)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func doneButonTapped(_ sender: UIButton) {
-        // TODO: 메인으로 change root
-        print("done")
+        // TODO: Userdefaults user 저장
+        changeRootViewController(storyboardToPushIdentifier: StoryboardId.main, viewControllerToChange: UITabBarController.self, isNeedNavigationController: false)
     }
 }
 

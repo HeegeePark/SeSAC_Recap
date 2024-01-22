@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = scene.windows.first!
         
-        let vc = UIStoryboard(name: "Onboarding", bundle: nil)
+        let vc = UIStoryboard(name: StoryboardId.onboarding, bundle: nil)
             .instantiateViewController(withIdentifier: OnboardingViewController.identifier)
         
         let nav = UINavigationController(rootViewController: vc)

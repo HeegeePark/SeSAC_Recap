@@ -8,13 +8,37 @@
 import UIKit
 
 extension UIViewController {
+    // push 화면전환
     func pushViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToPush viewController: T.Type, isNeedNavigationController: Bool) {
-        let sb = storyboard != nil ? UIStoryboard(name: storyboard!, bundle: nil): self.storyboard
-        guard let vc = sb?.instantiateViewController(withIdentifier: T.identifier) as? T else { return }
+        let vc = loadViewController(storyboardToPushIdentifier: storyboard, viewControllerToChange: viewController)
         
         let vcToPush = isNeedNavigationController ? UINavigationController(rootViewController: vc): vc
         
         navigationController?.pushViewController(vcToPush, animated: true)
+    }
+    
+    // UIWindow의 rootViewController 변경하여 화면전환
+    func changeRootViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToChange viewController: T.Type, isNeedNavigationController: Bool) {
+        let vc = loadViewController(storyboardToPushIdentifier: storyboard, viewControllerToChange: viewController)
+        
+        let vcToChange = isNeedNavigationController ? UINavigationController(rootViewController: vc): vc
+        
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        
+        if let window = sceneDelegate?.window! {
+            window.rootViewController = vcToChange
+            window.makeKeyAndVisible()
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
+        }
+    }
+    
+    // viewcontroller 인스턴스 반환
+    func loadViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToChange viewController: T.Type) -> T {
+        let sb = storyboard != nil ? UIStoryboard(name: storyboard!, bundle: nil): self.storyboard
+        let vc = sb?.instantiateViewController(withIdentifier: T.identifier) as! T
+        
+        return vc
     }
     
     @objc func popViewcontroller() {

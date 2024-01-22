@@ -51,6 +51,7 @@ extension ProfileImageViewController {
     }
     
     override func configureNavigationBar() {
+        super.configureNavigationBar()
         navigationItem.title = "프로필 수정"
         
         setBackButtonInNavigationBar()
