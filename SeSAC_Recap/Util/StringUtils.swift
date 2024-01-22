@@ -14,3 +14,9 @@ enum StoryboardId {
     static let searchResult = "SearchResult"
     static let setting = "Setting"
 }
+
+enum SFSymbol {
+    static let chevronLeft = "chevron.left"
+    static let magnifyingglass = "magnifyingglass"
+    static let xmark = "xmark"
+}

@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showToast()
+//        showToast()
         configureView()
         configureNavigationBar()
         configureTableView()
@@ -37,11 +37,11 @@ class MainViewController: UIViewController {
 }
 
 // MARK: Custom UI
-extension MainViewController {
+extension MainViewController: UITableViewControllerProtocol {
     override func configureView() {
         super.configureView()
         
-        tableViewArea.isHidden = true
+//        tableViewArea.isHidden = true
         
         // 서치바
         searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
@@ -78,11 +78,37 @@ extension MainViewController {
         navigationItem.title = "\(UserDefaultUtils.user.nickname)님의 새싹쇼핑"
     }
     
-    override func configureTableView() {
-        super.configureTableView()
+    func configureTableView() {
+        registerXib()
+        connectDelegate()
         
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    func registerXib() {
+        let xib = UINib(nibName: RecentSearchTableViewCell.identifier, bundle: nil)
+        tableView.register(xib, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
+    }
+    
+    func connectDelegate() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier, for: indexPath) as! RecentSearchTableViewCell
+        
+        cell.bindItem(log: SearchLog(keyword: "레오폴드 저소음 적축"))
+        
+        return cell
     }
 }
 

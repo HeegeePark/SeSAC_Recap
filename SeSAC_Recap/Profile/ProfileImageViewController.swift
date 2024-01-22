@@ -57,7 +57,7 @@ extension ProfileImageViewController {
         setBackButtonInNavigationBar()
     }
     
-    override func configureCollectionView() {
+    func configureCollectionView() {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         

@@ -92,19 +92,13 @@ extension UIViewController: UIViewControllerConfiguration {
     }
     
     func setBackButtonInNavigationBar() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(popViewcontroller))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: SFSymbol.chevronLeft), style: .plain, target: self, action: #selector(popViewcontroller))
         navigationItem.leftBarButtonItem = backButton
     }
     
     func setKeyboardDismiss() {
         // keyboardDismiss 탭제스처 등록
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardDismiss)))
-    }
-    
-    func configureTableView() {
-    }
-    
-    func configureCollectionView() {
     }
 }
 
