@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileImageDelegate {
+    func selectImage(selectedImageIndex idx: Int)   // 선택한 이미지 idx return
+}
+
 class ProfileImageViewController: UIViewController {
     @IBOutlet var selectedImageView: UIImageView!
     @IBOutlet var imageCollectionView: UICollectionView!
@@ -14,12 +18,18 @@ class ProfileImageViewController: UIViewController {
     let list: [UIImage] = UIImage.Profile.list
     var selectedCellIndex: Int = 0
     
+    var delegate: ProfileImageDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
         configureNavigationBar()
         configureCollectionView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.selectImage(selectedImageIndex: selectedCellIndex)
     }
     
     func setCurrentImage(imageIndex idx: Int) {

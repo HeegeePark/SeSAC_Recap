@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     @IBOutlet var profileImageViewArea: UIView!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var cameraImageView: UIImageView!
@@ -19,7 +19,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet var doneButton: UIButton!
     
     // TODO: 프로필 설정/수정 대응
-    var profileImageIndex: Int = Int.random(in: UIImage.Profile.range)
+    var profileImageIndex: Int = Int.random(in: UIImage.Profile.range) {
+        didSet {
+            profileImageView.image = .Profile[profileImageIndex]
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +34,7 @@ class ProfileViewController: UIViewController {
     // 프로필 이미지 영역 탭했을 때
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProfileImageViewController.identifier) as! ProfileImageViewController
+        vc.delegate = self
         vc.setCurrentImage(imageIndex: profileImageIndex - 1)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -94,6 +99,13 @@ extension ProfileViewController {
         navigationItem.title = "프로필 설정"
         
         setBackButtonInNavigationBar()
+    }
+}
+
+// MARK: - ProfileImageDelegate
+extension ProfileViewController: ProfileImageDelegate {
+    func selectImage(selectedImageIndex idx: Int) {
+        profileImageIndex = idx + 1
     }
 }
 
