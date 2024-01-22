@@ -23,10 +23,18 @@ class SearchResultViewController: UIViewController {
         configureView()
         configureNavigationBar()
         configureCollectionView()
+        
+        fetchResultItems()
     }
     
     func updateKeyword(log: SearchLog) {
         keyword = log.keyword
+    }
+    
+    func fetchResultItems() {
+        ShoppingAPI.getShopping(keyword: "가방", sortingType: .sim) { list in
+            dump(list)
+        }
     }
 
 }

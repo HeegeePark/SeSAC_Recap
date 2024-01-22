@@ -22,3 +22,7 @@ enum SFSymbol {
     static let heart = "heart"
     static let heartFill = "heart.fill"
 }
+
+enum BASEURL {
+    static let shopping = "https://openapi.naver.com/v1/search/shop.json"
+}
