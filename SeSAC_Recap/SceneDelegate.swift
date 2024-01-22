@@ -20,12 +20,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = scene.windows.first!
         
-        let vc = UIStoryboard(name: StoryboardId.onboarding, bundle: nil)
-            .instantiateViewController(withIdentifier: OnboardingViewController.identifier)
+        if UserDefaultUtils.user.nickname.isEmpty {
+            let vc = UIStoryboard(name: StoryboardId.onboarding, bundle: nil)
+                .instantiateViewController(withIdentifier: OnboardingViewController.identifier)
+            
+            let nav = UINavigationController(rootViewController: vc)
+            
+            window.rootViewController = nav
+            
+        } else {
+            let vc = UIStoryboard(name: StoryboardId.main, bundle: nil)
+                .instantiateViewController(withIdentifier: UITabBarController.identifier)
+            
+            window.rootViewController = vc
+        }
         
-        let nav = UINavigationController(rootViewController: vc)
-        
-        window.rootViewController = nav
         window.makeKeyAndVisible()
     }
 
