@@ -18,6 +18,9 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet var doneButton: UIButton!
     
+    // TODO: 프로필 설정/수정 대응
+    var profileImageIndex: Int = Int.random(in: UIImage.Profile.range)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,8 +29,9 @@ class ProfileViewController: UIViewController {
     
     // 프로필 이미지 영역 탭했을 때
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
-        // TODO: 프로필 이미지 설정 화면 이동
-        pushViewController(storyboardToPushIdentifier: nil, viewControllerToPush: ProfileImageViewController.self, isNeedNavigationController: false)
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProfileImageViewController.identifier) as! ProfileImageViewController
+        vc.setCurrentImage(imageIndex: profileImageIndex - 1)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func doneButonTapped(_ sender: UIButton) {
@@ -42,6 +46,7 @@ extension ProfileViewController {
         super.configureView()
         
         configureNavigationBar()
+        setKeyboardDismiss()
         
         // 프로필 이미지 뷰 UIView
         profileImageViewArea.backgroundColor = .clear
@@ -50,7 +55,7 @@ extension ProfileViewController {
         
         // 프로필 이미지 뷰
         // TODO: 프로필 설정/수정 대응
-        profileImageView.image = .Profile.randomImage
+        profileImageView.image = .Profile[profileImageIndex]
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderColor = UIColor.point.cgColor
         profileImageView.layer.borderWidth = 5

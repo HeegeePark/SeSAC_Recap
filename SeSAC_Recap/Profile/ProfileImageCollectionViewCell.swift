@@ -10,19 +10,22 @@ import UIKit
 class ProfileImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     
+    override func awakeFromNib() {
+        configureImage()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         imageView.setCornerRadius(style: .circle(contentView))
     }
     
-    func configureImage(image: UIImage) {
-        imageView.image = image
-        imageView.contentMode = .scaleAspectFill        
+    func configureImage() {
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderWidth = 5
     }
     
-    func selectImage() {
-        imageView.layer.borderWidth = 5
-        imageView.layer.borderColor = UIColor.point.cgColor
+    func updateImage(image: UIImage) {
+        imageView.image = image
+        imageView.layer.borderColor = isSelected ? UIColor.point.cgColor: UIColor.clear.cgColor
     }
 }

@@ -125,10 +125,10 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="fvo-57-NAh" secondAttribute="trailing" id="53n-4Q-COr"/>
-                                                <constraint firstItem="fvo-57-NAh" firstAttribute="leading" secondItem="hZO-cU-qso" secondAttribute="leading" id="agE-iC-O75"/>
-                                                <constraint firstAttribute="bottom" secondItem="fvo-57-NAh" secondAttribute="bottom" id="uPY-Ng-EPe"/>
-                                                <constraint firstItem="fvo-57-NAh" firstAttribute="top" secondItem="hZO-cU-qso" secondAttribute="top" id="yyR-JF-fAc"/>
+                                                <constraint firstItem="fvo-57-NAh" firstAttribute="top" secondItem="hZO-cU-qso" secondAttribute="top" id="37E-0q-KvR"/>
+                                                <constraint firstAttribute="bottom" secondItem="fvo-57-NAh" secondAttribute="bottom" id="ITK-YJ-ejG"/>
+                                                <constraint firstItem="fvo-57-NAh" firstAttribute="leading" secondItem="hZO-cU-qso" secondAttribute="leading" id="ZuH-gn-Qa7"/>
+                                                <constraint firstAttribute="trailing" secondItem="fvo-57-NAh" secondAttribute="trailing" id="tFK-be-8im"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
