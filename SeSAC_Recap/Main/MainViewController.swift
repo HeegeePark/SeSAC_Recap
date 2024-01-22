@@ -42,6 +42,28 @@ class MainViewController: UIViewController {
         }
     }
     
+    func search(log: SearchLog, index: Int?) {
+        // 기존 리스트에서 존재한다면 삭제
+        if let index {
+            UserDefaultUtils.searchLogs.remove(at: UserDefaultUtils.searchLogs.count - index - 1)
+        }
+        
+        // append
+        UserDefaultUtils.searchLogs.append(log)
+        
+        // 화면 전환
+        pushToSearchResultViewController(log: log)
+        
+    }
+    
+    // 검색 키워드를 가지고 검색 결과 화면 전환
+    func pushToSearchResultViewController(log: SearchLog) {
+        let vc = loadViewController(storyboardToPushIdentifier: StoryboardId.searchResult, viewControllerToChange: SearchResultViewController.self)
+        vc.updateKeyword(log: log)
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc func clearRecentSearchButtonTapped(_ sender: UIButton) {
         UserDefaultUtils.searchLogs.removeAll()
     }
@@ -130,16 +152,20 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let log = UserDefaultUtils.searchLogs.reversed()[indexPath.row]
+        
+        search(log: log, index: indexPath.row)
+    }
 }
 
 // MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard searchBar.text != "" else { return }
+        let log = SearchLog(keyword: searchBar.text!)
         
-        // Userdefaults에 저장
-        UserDefaultUtils.searchLogs.append(SearchLog(keyword: searchBar.text!))
-        
-        // TODO: 검색 키워드 가지고 검색 결과 화면 전환
+        search(log: log, index: nil)
     }
 }
