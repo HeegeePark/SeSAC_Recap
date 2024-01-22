@@ -13,10 +13,16 @@ class RecentSearchTableViewCell: UITableViewCell {
     @IBOutlet var searchLabel: UILabel!
     @IBOutlet var deleteButton: UIButton!
     
+    var deletedHandler: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         cofigureUI()
+    }
+    
+    @objc func deleteButtonTapped(_ sender: UIButton) {
+        deletedHandler?()
     }
 }
 
@@ -32,6 +38,7 @@ extension RecentSearchTableViewCell {
         let image = UIImage(systemName: SFSymbol.xmark, withConfiguration: imageConfig)
         deleteButton.setImage(image, for: .normal)
         deleteButton.tintColor = .white
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
     }
     
     func bindItem(log: SearchLog) {

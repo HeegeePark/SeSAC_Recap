@@ -122,6 +122,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 
         cell.bindItem(log: log)
         
+        // delete cell handler
+        cell.deletedHandler = {
+            // reversed해서 뷰에 그리고 있으므로 삭제할 때도 index 뒤집기
+            UserDefaultUtils.searchLogs.remove(at: UserDefaultUtils.searchLogs.count - indexPath.row - 1)
+        }
+        
         return cell
     }
 }
