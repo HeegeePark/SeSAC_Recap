@@ -61,7 +61,7 @@ extension SearchResultViewController: UICollectionViewControllerProtocol {
     }
     
     func configureLayout() {
-        collectionView.setLayout(inset: 8, spacing: 8, heightToWidthRatio: 1.3, colCount: 2)
+        collectionView.setLayout(inset: 8, spacing: 8, heightToWidthRatio: 1.5, colCount: 2)
     }
 }
 
@@ -73,6 +73,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as! SearchResultCollectionViewCell
+        
         
         return cell
     }

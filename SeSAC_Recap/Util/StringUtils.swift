@@ -19,4 +19,6 @@ enum SFSymbol {
     static let chevronLeft = "chevron.left"
     static let magnifyingglass = "magnifyingglass"
     static let xmark = "xmark"
+    static let heart = "heart"
+    static let heartFill = "heart.fill"
 }
