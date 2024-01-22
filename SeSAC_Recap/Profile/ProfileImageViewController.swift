@@ -91,14 +91,3 @@ extension ProfileImageViewController: UICollectionViewDelegate, UICollectionView
         collectionView.reloadData()
     }
 }
-
-// MARK: - Preview
-
-import SwiftUI
-struct PreView: PreviewProvider {
-    static var previews: some View {
-        let vc = UIStoryboard(name: StoryboardId.profile, bundle: nil)
-            .instantiateViewController(withIdentifier: ProfileImageViewController.identifier)
-        vc.toPreview()
-    }
-}

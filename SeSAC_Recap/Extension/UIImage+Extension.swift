@@ -15,11 +15,6 @@ extension UIImage {
             return UIImage(named: "profile\(idx)")!
         }
         
-        static var randomImage: UIImage {
-            let idx = Int.random(in: range)
-            return Profile[idx]
-        }
-        
         static var list: [UIImage] {
             return range.map { Profile[$0] }
         }

@@ -113,7 +113,6 @@ extension UIViewController: UIViewControllerConfiguration {
 /*
  - 디자인하는 VC 파일 하단에 Preview 구조체 넣어주기
  
- import SwiftUI
  // MARK: - Preview
 
  import SwiftUI
