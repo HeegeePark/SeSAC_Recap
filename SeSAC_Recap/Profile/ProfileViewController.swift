@@ -39,8 +39,9 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    // 완료 버튼 탭했을 때
     @objc func doneButonTapped(_ sender: UIButton) {
-        // TODO: Userdefaults user 저장
+        UserDefaultUtils.user = User(nickname: nicknameTextField.text!, profileImageIndex: profileImageIndex)
         changeRootViewController(storyboardToPushIdentifier: StoryboardId.main, viewControllerToChange: UITabBarController.self, isNeedNavigationController: false)
     }
 }
