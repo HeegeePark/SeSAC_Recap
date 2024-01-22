@@ -27,11 +27,18 @@ class MainViewController: UIViewController {
         configureView()
         configureNavigationBar()
         configureTableView()
+        connetHandler()
     }
     
     func showToast() {
         DeviceUtils.tabBarHeight = tabBarController!.tabBar.frame.size.height
         showToast(message: "\(UserDefaultUtils.user.nickname)님, 환영합니다. 🌱", font: .sf15)
+    }
+    
+    func connetHandler() {
+        UserDefaultUtils.searchLogsHadler = {
+            self.tableView.reloadData()
+        }
     }
 
 }
@@ -41,13 +48,12 @@ extension MainViewController: UITableViewControllerProtocol {
     override func configureView() {
         super.configureView()
         
-//        tableViewArea.isHidden = true
-        
         // 서치바
         searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
         
         // 테이블뷰 area
         tableViewArea.backgroundColor = view.backgroundColor
+        tableViewArea.isHidden = UserDefaultUtils.searchLogs.isEmpty
         
         // 최근 검색 레이블
         recentSearchLabel.text = "최근 검색"
@@ -100,13 +106,13 @@ extension MainViewController: UITableViewControllerProtocol {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return UserDefaultUtils.searchLogs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier, for: indexPath) as! RecentSearchTableViewCell
         
-        cell.bindItem(log: SearchLog(keyword: "레오폴드 저소음 적축"))
+//        cell.bindItem(log: SearchLog(keyword: "레오폴드 저소음 적축"))
         
         return cell
     }

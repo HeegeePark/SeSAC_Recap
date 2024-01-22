@@ -10,6 +10,15 @@ import Foundation
 class UserDefaultUtils {
     @UserDefault(key: "user", defaultValue: User(nickname: "", profileImageIndex: -1))
     static var user: User
+    
+    @UserDefault(key: "searchLogs", defaultValue: [])
+    static var searchLogs: [SearchLog] {
+        didSet {
+            searchLogsHadler?()
+        }
+    }
+    static var searchLogsHadler: (() -> Void)?
+    
 }
 
 @propertyWrapper
