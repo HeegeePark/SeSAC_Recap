@@ -35,14 +35,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="AUS-lD-7Zy">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="oSG-hu-Glg">
                                 <rect key="frame" x="0.0" y="103" width="393" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="eAD-LZ-fBJ"/>
+                                    <constraint firstAttribute="height" constant="44" id="LnT-fa-TG1"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="NGc-ge-Xcr" id="N9U-7d-b63"/>
+                                    <outlet property="delegate" destination="NGc-ge-Xcr" id="66L-xT-qYY"/>
                                 </connections>
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7z-KH-1qX">
@@ -105,14 +105,14 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0Az-04-3UK"/>
                         <constraints>
-                            <constraint firstItem="AUS-lD-7Zy" firstAttribute="trailing" secondItem="0Az-04-3UK" secondAttribute="trailing" id="8FN-1g-Xh9"/>
+                            <constraint firstItem="oSG-hu-Glg" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="6Sy-CI-6za"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="centerX" secondItem="k9I-M5-bHH" secondAttribute="centerX" id="9TV-dT-hRO"/>
-                            <constraint firstItem="AUS-lD-7Zy" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="BmX-rW-2mF"/>
-                            <constraint firstItem="AUS-lD-7Zy" firstAttribute="top" secondItem="0Az-04-3UK" secondAttribute="top" id="Vze-0w-KmX"/>
-                            <constraint firstItem="k9I-M5-bHH" firstAttribute="top" secondItem="AUS-lD-7Zy" secondAttribute="bottom" id="XQ8-q9-MHv"/>
                             <constraint firstItem="0Az-04-3UK" firstAttribute="trailing" secondItem="k9I-M5-bHH" secondAttribute="trailing" id="YzY-AS-dlb"/>
                             <constraint firstItem="0Az-04-3UK" firstAttribute="bottom" secondItem="k9I-M5-bHH" secondAttribute="bottom" id="ezC-i9-VnT"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="centerY" secondItem="k9I-M5-bHH" secondAttribute="centerY" id="fXd-vj-nKH"/>
+                            <constraint firstItem="oSG-hu-Glg" firstAttribute="top" secondItem="0Az-04-3UK" secondAttribute="top" id="fcD-Yg-wdw"/>
+                            <constraint firstItem="oSG-hu-Glg" firstAttribute="trailing" secondItem="0Az-04-3UK" secondAttribute="trailing" id="jcR-hz-NXn"/>
+                            <constraint firstItem="k9I-M5-bHH" firstAttribute="top" secondItem="oSG-hu-Glg" secondAttribute="bottom" id="nGk-1h-mFi"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="width" secondItem="fOF-Qv-P4P" secondAttribute="width" multiplier="0.7" id="qfN-KV-pfR"/>
                             <constraint firstItem="k9I-M5-bHH" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="qu3-7j-IYD"/>
                         </constraints>
@@ -124,7 +124,7 @@
                         <outlet property="emptyLabel" destination="HxD-Vd-TYV" id="aLN-pb-z6M"/>
                         <outlet property="emptyView" destination="z7z-KH-1qX" id="Aud-uF-B5E"/>
                         <outlet property="recentSearchLabel" destination="yVh-SI-pp6" id="ZUH-hO-IDk"/>
-                        <outlet property="searchBar" destination="AUS-lD-7Zy" id="Pf9-gD-v4Z"/>
+                        <outlet property="searchBar" destination="oSG-hu-Glg" id="hBf-LT-jB9"/>
                         <outlet property="tableView" destination="3kJ-FE-VAq" id="39T-Y9-ZG3"/>
                         <outlet property="tableViewArea" destination="k9I-M5-bHH" id="DS4-9A-rtd"/>
                     </connections>

@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        showToast()
+        showToast()
         configureView()
         configureNavigationBar()
         configureTableView()
@@ -37,10 +37,10 @@ class MainViewController: UIViewController {
     
     func connetHandler() {
         UserDefaultUtils.searchLogsHadler = {
+            self.tableViewArea.isHidden = UserDefaultUtils.searchLogs.isEmpty
             self.tableView.reloadData()
         }
     }
-
 }
 
 // MARK: Custom UI
@@ -50,6 +50,7 @@ extension MainViewController: UITableViewControllerProtocol {
         
         // 서치바
         searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
+        searchBar.delegate = self
         
         // 테이블뷰 area
         tableViewArea.backgroundColor = view.backgroundColor
@@ -112,9 +113,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier, for: indexPath) as! RecentSearchTableViewCell
         
-//        cell.bindItem(log: SearchLog(keyword: "레오폴드 저소음 적축"))
+        let log = UserDefaultUtils.searchLogs.reversed()[indexPath.row]
+                
+        cell.bindItem(log: log)
         
         return cell
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension MainViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard searchBar.text != "" else { return }
+        
+        // Userdefaults에 저장
+        UserDefaultUtils.searchLogs.append(SearchLog(keyword: searchBar.text!))
+        
+        // TODO: 검색 키워드 가지고 검색 결과 화면 전환
     }
 }
 
