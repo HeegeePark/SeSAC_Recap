@@ -8,8 +8,20 @@
 import UIKit
 
 extension UIImage {
-    static var randomProfile: UIImage {
-        let idx = Int.random(in: 1...14)
-        return UIImage(named: "profile\(idx)")!
+    enum Profile {
+        static let range = 1...14
+        
+        static subscript(idx: Int) -> UIImage {
+            return UIImage(named: "profile\(idx)")!
+        }
+        
+        static var randomImage: UIImage {
+            let idx = Int.random(in: range)
+            return Profile[idx]
+        }
+        
+        static var list: [UIImage] {
+            return range.map { Profile[$0] }
+        }
     }
 }

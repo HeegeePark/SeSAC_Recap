@@ -5,7 +5,7 @@
 //  Created by 박희지 on 1/19/24.
 //
 
-import Foundation
+import UIKit
 
 protocol Reusable: AnyObject {
     static var identifier: String { get }
@@ -16,3 +16,7 @@ extension Reusable {
         return String(describing: self)
     }
 }
+
+extension UIViewController: Reusable {}
+extension UITableViewCell: Reusable {}
+extension UICollectionViewCell: Reusable {}

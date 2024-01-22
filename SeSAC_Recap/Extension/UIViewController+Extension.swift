@@ -7,8 +7,6 @@
 
 import UIKit
 
-extension UIViewController: Reusable {}
-
 extension UIViewController {
     func pushViewController<T: UIViewController>(storyboardToPushIdentifier storyboard: String?, viewControllerToPush viewController: T.Type, isNeedNavigationController: Bool) {
         let sb = storyboard != nil ? UIStoryboard(name: storyboard!, bundle: nil): self.storyboard

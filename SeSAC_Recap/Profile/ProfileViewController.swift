@@ -50,7 +50,7 @@ extension ProfileViewController {
         
         // 프로필 이미지 뷰
         // TODO: 프로필 설정/수정 대응
-        profileImageView.image = .randomProfile
+        profileImageView.image = .Profile.randomImage
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderColor = UIColor.point.cgColor
         profileImageView.layer.borderWidth = 5
