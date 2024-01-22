@@ -23,10 +23,7 @@ extension UIViewController {
         
         let vcToChange = isNeedNavigationController ? UINavigationController(rootViewController: vc): vc
         
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
-        if let window = sceneDelegate?.window! {
+        if let window = DeviceUtils.window {
             window.rootViewController = vcToChange
             window.makeKeyAndVisible()
             UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
@@ -41,11 +38,41 @@ extension UIViewController {
         return vc
     }
     
-    @objc func popViewcontroller() {
+    // toast message
+    func showToast(message : String, font: UIFont) {
+        let toastView: UIView = {
+            let view = UIView()
+            view.frame = CGRect(x: 10, y: DeviceUtils.height - DeviceUtils.tabBarHeight - 35, width: DeviceUtils.width - 20, height: 35)
+            view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.8)
+            view.alpha = 1.0
+            view.layer.cornerRadius = 5
+            view.clipsToBounds  =  true
+            self.view.addSubview(view)
+            return view
+        }()
+        
+        let _ : UILabel = {
+            let label = UILabel(frame: CGRect(x: 10, y: toastView.bounds.midY - 10, width: toastView.frame.width, height: toastView.frame.height / 2))
+            label.textColor = UIColor.white
+            label.font = font
+            label.textAlignment = .left
+            label.text = message
+            toastView.addSubview(label)
+            return label
+        }()
+        
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastView.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastView.removeFromSuperview()
+        })
+    }
+    
+    @objc private func popViewcontroller() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func keyboardDismiss(_ sender: UITapGestureRecognizer) {
+    @objc private func keyboardDismiss(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 }
