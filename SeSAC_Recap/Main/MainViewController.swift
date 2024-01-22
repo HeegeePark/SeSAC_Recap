@@ -41,6 +41,10 @@ class MainViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    
+    @objc func clearRecentSearchButtonTapped(_ sender: UIButton) {
+        UserDefaultUtils.searchLogs.removeAll()
+    }
 }
 
 // MARK: Custom UI
@@ -65,6 +69,7 @@ extension MainViewController: UITableViewControllerProtocol {
         clearRecentSearchButton.setTitle("모두 지우기", for: .normal)
         clearRecentSearchButton.titleLabel?.font = .sf13Bold
         clearRecentSearchButton.setTitleColor(.point, for: .normal)
+        clearRecentSearchButton.addTarget(self, action: #selector(clearRecentSearchButtonTapped), for: .touchUpInside)
         
         // 최근 검색어 nil 뷰
         emptyView.backgroundColor = .clear
@@ -130,16 +135,5 @@ extension MainViewController: UISearchBarDelegate {
         UserDefaultUtils.searchLogs.append(SearchLog(keyword: searchBar.text!))
         
         // TODO: 검색 키워드 가지고 검색 결과 화면 전환
-    }
-}
-
-// MARK: - Preview
-
-import SwiftUI
-struct PreView: PreviewProvider {
-    static var previews: some View {
-        let vc = UIStoryboard(name: StoryboardId.main, bundle: nil)
-            .instantiateViewController(withIdentifier: MainViewController.identifier)
-        vc.toPreview()
     }
 }
