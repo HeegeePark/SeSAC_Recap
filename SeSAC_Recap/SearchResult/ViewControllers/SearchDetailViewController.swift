@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import WebKit
 
 class SearchDetailViewController: UIViewController {
+    
+    @IBOutlet var webView: WKWebView!
     
     var itemInfo: ItemInfo?
     var productId: String?
@@ -15,10 +18,8 @@ class SearchDetailViewController: UIViewController {
         didSet {
             if isWished {
                 navigationItem.rightBarButtonItem?.image = UIImage(systemName: SFSymbol.heartFill)
-                
             } else {
                 navigationItem.rightBarButtonItem?.image = UIImage(systemName: SFSymbol.heart)
-                
             }
         }
     }
@@ -28,6 +29,16 @@ class SearchDetailViewController: UIViewController {
 
         configureView()
         configureNavigationBar()
+        loadWebView()
+    }
+    
+    func loadWebView() {
+        if let info = itemInfo {
+            print(info.linkURL)
+            let request = URLRequest(url: info.linkURL)
+            
+            webView.load(request)
+        }
     }
     
     func updateItem(item: Item) {

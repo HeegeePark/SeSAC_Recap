@@ -21,7 +21,7 @@ struct ItemInfo {
     }
     
     var linkURL: URL {
-        return URL(string: item.link)!
+        return URL(string: "https://msearch.shopping.naver.com/product/" + item.productId)!
     }
     
     var lPrice: String {
