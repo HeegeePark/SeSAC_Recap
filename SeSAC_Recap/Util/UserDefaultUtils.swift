@@ -17,7 +17,11 @@ class UserDefaultUtils {
             searchLogsHadler?()
         }
     }
+    
     static var searchLogsHadler: (() -> Void)?
+    
+    @UserDefault(key: "wishes", defaultValue: [])
+    static var wishes: Set<String>
     
 }
 

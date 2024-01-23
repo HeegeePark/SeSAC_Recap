@@ -143,19 +143,23 @@ extension SearchResultViewController: UICollectionViewControllerProtocol {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("items count: \(items?.count)")
         return items?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier, for: indexPath) as! SearchResultCollectionViewCell
         
-        if let item = items?[indexPath.item] {
-            cell.bindItem(item: item)
-        }
+        guard let item = items?[indexPath.item] else { return UICollectionViewCell() }
         
-        cell.wishedHandler = {
-            // TODO: UserDefaults에 좋아요 반영
+        cell.bindItem(item: item)
+        
+        cell.wishedHandler = { isWished in
+            if isWished {
+                UserDefaultUtils.wishes.insert(item.productId)
+            } else {
+                UserDefaultUtils.wishes.remove(item.productId)
+            }
+            print(UserDefaultUtils.wishes)
         }
         
         return cell

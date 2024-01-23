@@ -23,4 +23,8 @@ struct ItemInfo {
     var lPrice: String {
         return Int(item.lprice)!.setComma()
     }
+    
+    var isWished: Bool {
+        return UserDefaultUtils.wishes.contains(item.productId)
+    }
 }

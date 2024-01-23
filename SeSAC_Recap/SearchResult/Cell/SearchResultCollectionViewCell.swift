@@ -19,13 +19,17 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet var lPriceLabel: UILabel!
     
     @IBOutlet var wishButton: UIButton!
+    var wishButtonImageConfig = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
+    
     var isWished: Bool = false {
         didSet {
-            wishedHandler?()
+            let imageStr = !isWished ? SFSymbol.heart: SFSymbol.heartFill
+            let image = UIImage(systemName: imageStr, withConfiguration: wishButtonImageConfig)
+            wishButton.setImage(image, for: .normal)
         }
     }
     
-    var wishedHandler: (() -> Void)?
+    var wishedHandler: ((Bool) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,6 +44,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     
     @objc func wishButtonTapped(_ sender: UIButton) {
         isWished.toggle()
+        wishedHandler?(isWished)
     }
 }
 
@@ -58,13 +63,12 @@ extension SearchResultCollectionViewCell {
         lPriceLabel.font = .sf15Bold
         lPriceLabel.textColor = .text
         
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
-        // TODO: 좋아요 여부 대응하기
-        let image = UIImage(systemName: SFSymbol.heart, withConfiguration: imageConfig)
+        let image = UIImage(systemName: SFSymbol.heart, withConfiguration: wishButtonImageConfig)
         wishButton.setImage(image, for: .normal)
         wishButton.tintColor = .black
         wishButton.backgroundColor = .white
         wishButton.layer.cornerRadius = 15
+        wishButton.addTarget(self, action: #selector(wishButtonTapped), for: .touchUpInside)
     }
     
     func bindItem(item: Item) {
@@ -75,5 +79,7 @@ extension SearchResultCollectionViewCell {
         mallNameLabel.text = item.mallName
         titleLabel.text = itemInfo.title
         lPriceLabel.text = itemInfo.lPrice
+        
+        isWished = itemInfo.isWished
     }
 }
