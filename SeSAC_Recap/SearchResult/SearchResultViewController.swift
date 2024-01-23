@@ -136,7 +136,7 @@ extension SearchResultViewController: UICollectionViewControllerProtocol {
     }
     
     func configureLayout() {
-        collectionView.setLayout(inset: 8, spacing: 8, heightToWidthRatio: 1.7, colCount: 2)
+        collectionView.setLayout(inset: 8, spacing: 8, heightToWidthRatio: 1.5, colCount: 2)
     }
 }
 

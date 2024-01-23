@@ -58,7 +58,7 @@ extension SearchResultCollectionViewCell {
         lPriceLabel.font = .sf15Bold
         lPriceLabel.textColor = .text
         
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .light)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
         // TODO: 좋아요 여부 대응하기
         let image = UIImage(systemName: SFSymbol.heart, withConfiguration: imageConfig)
         wishButton.setImage(image, for: .normal)
@@ -68,11 +68,12 @@ extension SearchResultCollectionViewCell {
     }
     
     func bindItem(item: Item) {
-        let url = URL(string: item.image)
-        thumbnailImageView.kf.setImage(with: url)
+        let itemInfo = ItemInfo(item: item)
+        
+        thumbnailImageView.kf.setImage(with: itemInfo.thumbnailImageURL)
         
         mallNameLabel.text = item.mallName
-        titleLabel.text = item.title
-        lPriceLabel.text = Int(item.lprice)!.setComma()
+        titleLabel.text = itemInfo.title
+        lPriceLabel.text = itemInfo.lPrice
     }
 }
