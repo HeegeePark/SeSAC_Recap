@@ -14,16 +14,25 @@ class APIRouter {
     
     var queryItems: [URLQueryItem]? {
         switch apiType {
-        case .shopping(let keyword, let sortingType):
+        case .shopping(let keyword, let sortingType, let start):
             return [URLQueryItem(name: "query", value: keyword),
-                    URLQueryItem(name: "display", value: "10"),
-                    URLQueryItem(name: "sort", value: sortingType.rawValue)]
+                    URLQueryItem(name: "display", value: "30"),
+                    URLQueryItem(name: "sort", value: sortingType.rawValue),
+                    URLQueryItem(name: "start", value: "\(start)")]
         
         }
     }
     
     init(apiType: APIType) {
         self.apiType = apiType
+    }
+    
+    var headers: HTTPHeaders {
+        switch apiType {
+        case .shopping(let keyword, let sortingType, let start):
+            return ["X-Naver-Client-Id": APIKey.naver,
+                    "X-Naver-Client-Secret": APIKey.naverSecret]
+        }
     }
     
     var requestURL: String {

@@ -118,7 +118,6 @@ extension ProfileViewController: CKTextFieldDelegate {
         // 글자 수
         let validRange = 2..<10
         guard validRange ~= text.count else {
-            print()
             return (false, "2글자 이상 10글자 미만으로 설정해주세요")
         }
         

@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
+
+// TODO: 제품명 2줄 나오게 처리
 
 class SearchResultCollectionViewCell: UICollectionViewCell {
 
@@ -16,7 +19,13 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet var lPriceLabel: UILabel!
     
     @IBOutlet var wishButton: UIButton!
+    var isWished: Bool = false {
+        didSet {
+            wishedHandler?()
+        }
+    }
     
+    var wishedHandler: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +37,10 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         thumbnailImageView.image = nil
     }
+    
+    @objc func wishButtonTapped(_ sender: UIButton) {
+        isWished.toggle()
+    }
 }
 
 extension SearchResultCollectionViewCell {
@@ -38,11 +51,11 @@ extension SearchResultCollectionViewCell {
         mallNameLabel.font = .sf13
         mallNameLabel.textColor = .text
         
-        titleLabel.font = .sf15Bold
+        titleLabel.font = .sf14
         titleLabel.textColor = .white
         titleLabel.numberOfLines = 2
         
-        lPriceLabel.font = .sf13
+        lPriceLabel.font = .sf15Bold
         lPriceLabel.textColor = .text
         
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .light)
@@ -54,7 +67,12 @@ extension SearchResultCollectionViewCell {
         wishButton.layer.cornerRadius = 15
     }
     
-    func bindItem() {
+    func bindItem(item: Item) {
+        let url = URL(string: item.image)
+        thumbnailImageView.kf.setImage(with: url)
         
+        mallNameLabel.text = item.mallName
+        titleLabel.text = item.title
+        lPriceLabel.text = Int(item.lprice)!.setComma()
     }
 }

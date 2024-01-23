@@ -9,19 +9,26 @@ import Foundation
 import Alamofire
 
 class ShoppingAPI {
-    static var page = 1
+    static var start = 1
+    static var isEnd: Bool = !(1...100 ~= start)
     
-    static func getShopping(keyword: String, sortingType: SortingType, _ completion: @escaping (([Item]) -> Void)) {
-        let url = APIRouter(apiType: .shopping(keyword: keyword, sortingType: sortingType)).requestURL
+    static func getShopping(keyword: String, sortingType: SortingType, fetchType: FetchType, _ completion: @escaping ((Shopping) -> Void)) {
+        switch fetchType {
+        case .search:
+            start = 1
+        case .append:
+            start += 1
+        }
         
-        let headers: HTTPHeaders = ["X-Naver-Client-Id": APIKey.naver,
-                                    "X-Naver-Client-Secret": APIKey.naverSecret]
+        let router = APIRouter(apiType: .shopping(keyword: keyword, sortingType: sortingType, start: ShoppingAPI.start))
+        let url = router.requestURL
         
-        AF.request(url, method: .get, headers: headers)
+        AF.request(url, method: .get, headers: router.headers)
             .responseDecodable(of: Shopping.self) { response in
                 switch response.result {
                 case .success(let success):
-                    completion(success.items)
+                    ShoppingAPI.start += 1
+                    completion(success)
                     
                 case .failure(let failure):
                     print("ShoppingAPI getShopping 오류 발생", failure)

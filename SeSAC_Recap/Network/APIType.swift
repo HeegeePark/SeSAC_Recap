@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum APIType {
-    case shopping(keyword: String, sortingType: SortingType)
+    case shopping(keyword: String, sortingType: SortingType, start: Int)
 }
 
 extension APIType {
