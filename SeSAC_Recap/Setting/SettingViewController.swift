@@ -19,7 +19,16 @@ class SettingViewController: UIViewController {
             case faq = "자주 묻는 질문"
             case inquiryForOneToOne = "1:1 문의"
             case notificationSetting = "알림 설정"
-            case gotoStart = "처음부터 시작하기"
+            case goToStart = "처음부터 시작하기"
+            
+            var isSelectionEnabled: Bool {
+                switch self {
+                case .goToStart:
+                    return true
+                default:
+                    return false
+                }
+            }
         }
         
         static var sectionCount: Int {
@@ -86,9 +95,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellType = SettingCell.allCases[indexPath.section]
+        let sectionType = SettingCell.allCases[indexPath.section]
         
-        switch cellType {
+        switch sectionType {
         case .profile:
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingProfileTableViewCell.identifier, for: indexPath) as! SettingProfileTableViewCell
             
@@ -96,10 +105,32 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .options:
             let cell = UITableViewCell(style: .default, reuseIdentifier: "SettingCell")
             
-            cell.textLabel?.text = SettingCell.Options.allCases[indexPath.row].rawValue
+            let cellType = SettingCell.Options.allCases[indexPath.row]
+            
+            cell.textLabel?.text = cellType.rawValue
             cell.textLabel?.font = .sf13
+            
+            cell.selectionStyle = cellType.isSelectionEnabled ? .default: .none
             
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard SettingCell.allCases[indexPath.section] == .options,
+              SettingCell.Options.allCases[indexPath.row] == .goToStart else { return }
+        
+        let alertInfo = Alert(title: "처음부터 시작하기",
+                              message: "데이터를 모두 초기화하시겠습니까?",
+                              style: .alert,
+                              actions: [UIAlertAction(title: "취소", style: .cancel),
+                                        UIAlertAction(title: "확인", style: .default) { _ in
+            // 데이터 리셋
+            UserDefaultUtils.reset()
+            // change rootVC
+            self.changeRootViewController(storyboardToPushIdentifier: StoryboardId.onboarding, viewControllerToChange: OnboardingViewController.self, isNeedNavigationController: true)
+        }
+                                       ])
+        presentAlert(alertInfo: alertInfo)
     }
 }

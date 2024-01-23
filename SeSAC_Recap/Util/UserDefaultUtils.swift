@@ -24,6 +24,11 @@ class UserDefaultUtils {
     @UserDefault(key: "wishes", defaultValue: [])
     static var wishes: Set<String>
     
+    static func reset() {
+        user = User(nickname: "", profileImageIndex: -1)
+        searchLogs.removeAll()
+        wishes.removeAll()
+    }
 }
 
 @propertyWrapper

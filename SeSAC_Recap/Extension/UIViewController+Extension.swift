@@ -38,6 +38,17 @@ extension UIViewController {
         return vc
     }
     
+    // 알럿 띄우기
+    func presentAlert(alertInfo: Alert) {
+        let alert = UIAlertController(title: alertInfo.title, message: alertInfo.message, preferredStyle: alertInfo.style)
+        
+        alertInfo.actions.forEach { action in
+            alert.addAction(action)
+        }
+        
+        present(alert, animated: true)
+    }
+    
     // toast message
     func showToast(message : String, font: UIFont) {
         let toastView: UIView = {
