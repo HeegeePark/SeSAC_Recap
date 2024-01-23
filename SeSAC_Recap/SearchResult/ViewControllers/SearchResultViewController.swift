@@ -51,6 +51,11 @@ class SearchResultViewController: UIViewController {
         fetchResultItems(sortingType: .sim, fetchType: .search)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+    
     func updateKeyword(log: SearchLog) {
         keyword = log.keyword
     }
@@ -163,6 +168,16 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = items?[indexPath.item] else { return }
+        
+        let vc = loadViewController(storyboardToPushIdentifier: nil, viewControllerToChange: SearchDetailViewController.self)
+        
+        vc.updateItem(item: item)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

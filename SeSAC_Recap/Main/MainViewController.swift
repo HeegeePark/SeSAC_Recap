@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
     }
     
     func connetHandler() {
-        UserDefaultUtils.searchLogsHadler = {
+        UserDefaultUtils.searchLogsHandler = {
             self.tableViewArea.isHidden = UserDefaultUtils.searchLogs.isEmpty
             self.tableView.reloadData()
         }

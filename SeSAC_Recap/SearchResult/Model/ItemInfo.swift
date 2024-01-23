@@ -20,6 +20,10 @@ struct ItemInfo {
         return URL(string: item.image)!
     }
     
+    var linkURL: URL {
+        return URL(string: item.link)!
+    }
+    
     var lPrice: String {
         return Int(item.lprice)!.setComma()
     }
