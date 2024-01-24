@@ -11,7 +11,6 @@ class UserDefaultUtils {
     @UserDefault(key: "user", defaultValue: User(nickname: "", profileImageIndex: -1))
     static var user: User
     
-    // TODO: 중복된 keyword 추가 막기
     @UserDefault(key: "searchLogs", defaultValue: [])
     static var searchLogs: [SearchLog] {
         didSet {
