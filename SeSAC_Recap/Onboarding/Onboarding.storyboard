@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -31,16 +32,18 @@
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OBv-Oc-CtA">
-                                <rect key="frame" x="96.666666666666686" y="139" width="200" height="90.666666666666686"/>
+                                <rect key="frame" x="40" y="98.999999999999986" width="313" height="130.66666666666663"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="QEU-ST-afy"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="vrU-hQ-E0b"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="OBv-Oc-CtA" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="80" id="9hg-BZ-Q4u"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="OBv-Oc-CtA" secondAttribute="trailing" constant="40" id="8Gx-t9-yn0"/>
+                            <constraint firstItem="OBv-Oc-CtA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="9GX-Q6-9u3"/>
+                            <constraint firstItem="OBv-Oc-CtA" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="40" id="9hg-BZ-Q4u"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="c1K-AK-OaG" secondAttribute="trailing" constant="20" id="Bek-7X-szh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Y3Y-an-zsa" secondAttribute="trailing" constant="40" id="EvV-OA-mxP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="c1K-AK-OaG" secondAttribute="bottom" id="IRm-ou-zb0"/>
