@@ -44,10 +44,11 @@ class MainViewController: UIViewController {
         }
     }
     
-    func search(log: SearchLog, index: Int?) {
-        // 기존 리스트에서 존재한다면 삭제
-        if let index {
-            UserDefaultUtils.searchLogs.remove(at: UserDefaultUtils.searchLogs.count - index - 1)
+    func search(log: SearchLog) {
+        // 최근 검색어에 이미 존재할 때
+        if UserDefaultUtils.keyOfsearchLogsSet.contains(log.keyword) {
+            let index = UserDefaultUtils.searchLogs.firstIndex(where: {$0.keyword == log.keyword})!
+            UserDefaultUtils.searchLogs.remove(at: index)
         }
         
         // append
@@ -162,7 +163,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let log = UserDefaultUtils.searchLogs.reversed()[indexPath.row]
         
-        search(log: log, index: indexPath.row)
+        search(log: log)
     }
 }
 
@@ -172,6 +173,6 @@ extension MainViewController: UISearchBarDelegate {
         guard searchBar.text != "" else { return }
         let log = SearchLog(keyword: searchBar.text!)
         
-        search(log: log, index: nil)
+        search(log: log)
     }
 }

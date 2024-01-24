@@ -15,9 +15,13 @@ class UserDefaultUtils {
     @UserDefault(key: "searchLogs", defaultValue: [])
     static var searchLogs: [SearchLog] {
         didSet {
+            keyOfsearchLogsSet = keyOfsearchLogsSet.union(Set(searchLogs.map { $0.keyword }))
             searchLogsHandler?()
         }
     }
+    
+    // 최근 검색어의 keyword만 모은 집합
+    static var keyOfsearchLogsSet: Set<String> = []
     
     static var searchLogsHandler: (() -> Void)?
     
