@@ -20,7 +20,10 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func startButtonTapped() {
-        pushViewController(storyboardToPushIdentifier: StoryboardId.profile, viewControllerToPush: ProfileViewController.self, isNeedNavigationController: false)
+        let vc = loadViewController(storyboardToPushIdentifier: StoryboardId.profile, viewControllerToChange: ProfileViewController.self)
+        vc.fromWhereType = .onboarding
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
