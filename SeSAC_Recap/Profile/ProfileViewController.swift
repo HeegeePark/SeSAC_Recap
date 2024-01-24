@@ -19,11 +19,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet var doneButton: UIButton!
     
     // TODO: 프로필 설정/수정 대응
-    var profileImageIndex: Int = Int.random(in: UIImage.Profile.range) {
+    lazy var profileImageIndex: Int = fromWhereType?.profileImageIndex ?? 0 {
         didSet {
             profileImageView.image = .Profile[profileImageIndex]
         }
     }
+    
+    var fromWhereType: ProfileType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +37,25 @@ class ProfileViewController: UIViewController {
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
         let vc = loadViewController(storyboardToPushIdentifier: nil, viewControllerToChange: ProfileImageViewController.self)
         vc.delegate = self
-        vc.setCurrentImage(imageIndex: profileImageIndex - 1)
+        vc.setCurrentImage(imageIndex: profileImageIndex)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     // 완료 버튼 탭했을 때
     @objc func doneButonTapped(_ sender: UIButton) {
         UserDefaultUtils.user = User(nickname: nicknameTextField.text!, profileImageIndex: profileImageIndex)
-        changeRootViewController(storyboardToPushIdentifier: StoryboardId.main, viewControllerToChange: UITabBarController.self, isNeedNavigationController: false)
+        
+        switch fromWhereType {
+        case .onboarding:
+            UserDefaultUtils.user = User(nickname: nicknameTextField.text!, profileImageIndex: profileImageIndex)
+            changeRootViewController(storyboardToPushIdentifier: StoryboardId.main, viewControllerToChange: UITabBarController.self, isNeedNavigationController: false)
+        
+        case .setting:
+            navigationController?.popViewController(animated: true)
+        
+        case nil:
+            break
+        }
     }
 }
 
@@ -60,8 +73,7 @@ extension ProfileViewController {
         profileImageViewArea.addGestureRecognizer(gesture)
         
         // 프로필 이미지 뷰
-        // TODO: 프로필 설정/수정 대응
-        profileImageView.image = .Profile[profileImageIndex]
+        profileImageView.image = fromWhereType!.image
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderColor = UIColor.point.cgColor
         profileImageView.layer.borderWidth = 5
@@ -75,6 +87,7 @@ extension ProfileViewController {
         // 닉네임 텍스트필드
         // TODO: left padding 안먹힘 해결
         nicknameTextField.ckDelegate = self
+        nicknameTextField.text = fromWhereType!.nickname
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
         nicknameTextField.validBorderColor = .point
         nicknameTextField.invalidBorderColor = .red
@@ -94,10 +107,9 @@ extension ProfileViewController {
         
     }
     
-    // TODO: 프로필 설정/수정 대응
     override func configureNavigationBar() {
         super.configureNavigationBar()
-        navigationItem.title = "프로필 설정"
+        navigationItem.title = fromWhereType!.navigationItemTitle
         
         setBackButtonInNavigationBar()
     }
@@ -106,7 +118,7 @@ extension ProfileViewController {
 // MARK: - ProfileImageDelegate
 extension ProfileViewController: ProfileImageDelegate {
     func selectImage(selectedImageIndex idx: Int) {
-        profileImageIndex = idx + 1
+        profileImageIndex = idx
     }
 }
 

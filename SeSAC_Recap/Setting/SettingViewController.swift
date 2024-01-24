@@ -52,6 +52,12 @@ class SettingViewController: UIViewController {
         configureNavigationBar()
         configureTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+    }
 }
 
 // MARK: - Custom UI
@@ -101,6 +107,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .profile:
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingProfileTableViewCell.identifier, for: indexPath) as! SettingProfileTableViewCell
             
+            cell.updateProfile()
+            
             return cell
         case .options:
             let cell = UITableViewCell(style: .default, reuseIdentifier: "SettingCell")
@@ -117,20 +125,28 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard SettingCell.allCases[indexPath.section] == .options,
-              SettingCell.Options.allCases[indexPath.row] == .goToStart else { return }
-        
-        let alertInfo = Alert(title: "처음부터 시작하기",
-                              message: "데이터를 모두 초기화하시겠습니까?",
-                              style: .alert,
-                              actions: [UIAlertAction(title: "취소", style: .cancel),
-                                        UIAlertAction(title: "확인", style: .default) { _ in
-            // 데이터 리셋
-            UserDefaultUtils.reset()
-            // change rootVC
-            self.changeRootViewController(storyboardToPushIdentifier: StoryboardId.onboarding, viewControllerToChange: OnboardingViewController.self, isNeedNavigationController: true)
+        switch SettingCell.allCases[indexPath.section] {
+        case .profile:
+            let vc = loadViewController(storyboardToPushIdentifier: StoryboardId.profile, viewControllerToChange: ProfileViewController.self)
+            vc.fromWhereType = .setting
+            
+            navigationController?.pushViewController(vc, animated: true)
+            
+        case .options:
+            guard SettingCell.Options.allCases[indexPath.row] == .goToStart else { return }
+            
+            let alertInfo = Alert(title: "처음부터 시작하기",
+                                  message: "데이터를 모두 초기화하시겠습니까?",
+                                  style: .alert,
+                                  actions: [UIAlertAction(title: "취소", style: .cancel),
+                                            UIAlertAction(title: "확인", style: .default) { _ in
+                // 데이터 리셋
+                UserDefaultUtils.reset()
+                // change rootVC
+                self.changeRootViewController(storyboardToPushIdentifier: StoryboardId.onboarding, viewControllerToChange: OnboardingViewController.self, isNeedNavigationController: true)
+            }
+                                           ])
+            presentAlert(alertInfo: alertInfo)
         }
-                                       ])
-        presentAlert(alertInfo: alertInfo)
     }
 }

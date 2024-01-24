@@ -43,6 +43,7 @@ extension ProfileImageViewController {
         super.configureView()
         
         // TODO: 이전 화면에서 선택된 이미지로 세팅
+        print(selectedCellIndex)
         selectedImageView.image = list[selectedCellIndex]
         selectedImageView.contentMode = .scaleAspectFill
         selectedImageView.layer.borderWidth = 5

@@ -15,7 +15,7 @@ class SettingProfileTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        print(#function)
         configureUI()
     }
     
@@ -25,8 +25,14 @@ class SettingProfileTableViewCell: UITableViewCell {
         profileImageView.setCornerRadius(style: .circle(profileImageView))
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        wishDescriptionLabel.text = ""
+    }
+    
     func configureUI() {
-        profileImageView.setProfileImageView(typeFromProfileEdit: .setting(currentProfileIndex: UserDefaultUtils.user.profileImageIndex))
+        profileImageView.setProfileImageView(typeFromProfileEdit: .setting)
         
         nicknameLabel.text = UserDefaultUtils.user.nickname
         nicknameLabel.font = .sf19Bold
@@ -35,6 +41,13 @@ class SettingProfileTableViewCell: UITableViewCell {
         wishDescriptionLabel.text = "\(UserDefaultUtils.wishes.count)개의 상품을 좋아하고 있어요!"
         wishDescriptionLabel.font = .sf15Bold
         wishDescriptionLabel.textColor = .text
+        wishDescriptionLabel.changeForegroundColor(keyword: "\(UserDefaultUtils.wishes.count)개의 상품", color: .point)
+    }
+    
+    func updateProfile() {
+        profileImageView.setProfileImageView(typeFromProfileEdit: .setting)
+        nicknameLabel.text = UserDefaultUtils.user.nickname
+        wishDescriptionLabel.text = "\(UserDefaultUtils.wishes.count)개의 상품을 좋아하고 있어요!"
         wishDescriptionLabel.changeForegroundColor(keyword: "\(UserDefaultUtils.wishes.count)개의 상품", color: .point)
     }
     

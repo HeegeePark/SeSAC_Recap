@@ -9,10 +9,10 @@ import UIKit
 
 extension UIImage {
     enum Profile {
-        static let range = 1...14
+        static let range = 0..<14
         
         static subscript(idx: Int) -> UIImage {
-            return UIImage(named: "profile\(idx)")!
+            return UIImage(named: "profile\(idx + 1)")!
         }
         
         static var list: [UIImage] {
