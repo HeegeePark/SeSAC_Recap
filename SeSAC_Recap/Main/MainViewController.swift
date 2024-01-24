@@ -20,6 +20,8 @@ class MainViewController: UIViewController {
     @IBOutlet var emptyImageView: UIImageView!
     @IBOutlet var emptyLabel: UILabel!
     
+    @IBOutlet var keyboardDismissView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,6 +106,10 @@ extension MainViewController: UITableViewControllerProtocol {
         emptyLabel.text = "최근 검색어가 없어요"
         emptyLabel.font = .sf16Bold
         emptyLabel.textColor = .text
+        
+        // keyboardDismiss 탭제스처 먹일 뷰
+        keyboardDismissView.backgroundColor = .clear
+        keyboardDismissView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardDismiss)))
     }
     
     override func configureNavigationBar() {

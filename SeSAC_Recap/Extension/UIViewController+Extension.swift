@@ -83,7 +83,7 @@ extension UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func keyboardDismiss(_ sender: UITapGestureRecognizer) {
+    @objc func keyboardDismiss(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
 }

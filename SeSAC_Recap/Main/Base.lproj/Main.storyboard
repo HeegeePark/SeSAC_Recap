@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CuF-nH-R88">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -71,6 +72,10 @@
                                     <constraint firstItem="HxD-Vd-TYV" firstAttribute="top" secondItem="5KF-Gv-n1W" secondAttribute="bottom" id="r1l-MM-9rK"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98p-oY-Ce2">
+                                <rect key="frame" x="0.0" y="362" width="393" height="407"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9I-M5-bHH">
                                 <rect key="frame" x="0.0" y="147" width="393" height="622"/>
                                 <subviews>
@@ -107,7 +112,10 @@
                         <constraints>
                             <constraint firstItem="oSG-hu-Glg" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="6Sy-CI-6za"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="centerX" secondItem="k9I-M5-bHH" secondAttribute="centerX" id="9TV-dT-hRO"/>
+                            <constraint firstItem="0Az-04-3UK" firstAttribute="trailing" secondItem="98p-oY-Ce2" secondAttribute="trailing" id="PMn-xM-ZNh"/>
+                            <constraint firstItem="0Az-04-3UK" firstAttribute="bottom" secondItem="98p-oY-Ce2" secondAttribute="bottom" id="Wgp-F1-QTO"/>
                             <constraint firstItem="0Az-04-3UK" firstAttribute="trailing" secondItem="k9I-M5-bHH" secondAttribute="trailing" id="YzY-AS-dlb"/>
+                            <constraint firstItem="98p-oY-Ce2" firstAttribute="top" secondItem="oSG-hu-Glg" secondAttribute="bottom" constant="215" id="cOO-Rz-vI3"/>
                             <constraint firstItem="0Az-04-3UK" firstAttribute="bottom" secondItem="k9I-M5-bHH" secondAttribute="bottom" id="ezC-i9-VnT"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="centerY" secondItem="k9I-M5-bHH" secondAttribute="centerY" id="fXd-vj-nKH"/>
                             <constraint firstItem="oSG-hu-Glg" firstAttribute="top" secondItem="0Az-04-3UK" secondAttribute="top" id="fcD-Yg-wdw"/>
@@ -115,6 +123,7 @@
                             <constraint firstItem="k9I-M5-bHH" firstAttribute="top" secondItem="oSG-hu-Glg" secondAttribute="bottom" id="nGk-1h-mFi"/>
                             <constraint firstItem="z7z-KH-1qX" firstAttribute="width" secondItem="fOF-Qv-P4P" secondAttribute="width" multiplier="0.7" id="qfN-KV-pfR"/>
                             <constraint firstItem="k9I-M5-bHH" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="qu3-7j-IYD"/>
+                            <constraint firstItem="98p-oY-Ce2" firstAttribute="leading" secondItem="0Az-04-3UK" secondAttribute="leading" id="tcZ-MF-KMa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="66e-aq-YZe"/>
@@ -123,6 +132,7 @@
                         <outlet property="emptyImageView" destination="5KF-Gv-n1W" id="w9b-xl-9gR"/>
                         <outlet property="emptyLabel" destination="HxD-Vd-TYV" id="aLN-pb-z6M"/>
                         <outlet property="emptyView" destination="z7z-KH-1qX" id="Aud-uF-B5E"/>
+                        <outlet property="keyboardDismissView" destination="98p-oY-Ce2" id="zL0-ua-am3"/>
                         <outlet property="recentSearchLabel" destination="yVh-SI-pp6" id="ZUH-hO-IDk"/>
                         <outlet property="searchBar" destination="oSG-hu-Glg" id="hBf-LT-jB9"/>
                         <outlet property="tableView" destination="3kJ-FE-VAq" id="39T-Y9-ZG3"/>
