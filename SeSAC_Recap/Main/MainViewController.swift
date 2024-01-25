@@ -64,6 +64,9 @@ class MainViewController: UIViewController {
         let vc = loadViewController(storyboardToPushIdentifier: StoryboardId.searchResult, viewControllerToChange: SearchResultViewController.self)
         vc.updateKeyword(log: log)
         
+        // 서치바 text clear
+        searchBar.text = ""
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
