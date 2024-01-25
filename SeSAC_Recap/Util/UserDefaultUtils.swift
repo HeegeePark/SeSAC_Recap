@@ -20,7 +20,7 @@ class UserDefaultUtils {
     }
     
     // 최근 검색어의 keyword만 모은 집합
-    static var keyOfsearchLogsSet: Set<String> = []
+    static var keyOfsearchLogsSet: Set<String> = Set(searchLogs.map { $0.keyword })
     
     static var searchLogsHandler: (() -> Void)?
     
