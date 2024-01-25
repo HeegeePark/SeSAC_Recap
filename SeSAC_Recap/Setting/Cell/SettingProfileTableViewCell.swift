@@ -15,7 +15,7 @@ class SettingProfileTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print(#function)
+        
         configureUI()
     }
     

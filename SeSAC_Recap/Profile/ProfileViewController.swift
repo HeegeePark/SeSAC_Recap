@@ -18,7 +18,6 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet var doneButton: UIButton!
     
-    // TODO: 프로필 설정/수정 대응
     lazy var profileImageIndex: Int = fromWhereType?.profileImageIndex ?? 0 {
         didSet {
             profileImageView.image = .Profile[profileImageIndex]
@@ -33,10 +32,15 @@ class ProfileViewController: UIViewController {
         configureView()
     }
     
+    func setFromWhereType(type: ProfileType) {
+        fromWhereType = type
+    }
+    
     // 프로필 이미지 영역 탭했을 때
     @objc func profileImageViewAreaTapped(_ sender: UITapGestureRecognizer) {
         let vc = loadViewController(storyboardToPushIdentifier: nil, viewControllerToChange: ProfileImageViewController.self)
         vc.delegate = self
+        vc.setNavigationBarTitle(title: fromWhereType?.navigationItemTitle ?? "")
         vc.setCurrentImage(imageIndex: profileImageIndex)
         navigationController?.pushViewController(vc, animated: true)
     }

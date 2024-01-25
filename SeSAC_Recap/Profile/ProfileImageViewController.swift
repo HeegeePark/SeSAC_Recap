@@ -17,6 +17,7 @@ class ProfileImageViewController: UIViewController {
     
     let list: [UIImage] = UIImage.Profile.list
     var selectedCellIndex: Int = 0
+    var navigationTitle = ""
     
     var delegate: ProfileImageDelegate?
     
@@ -35,6 +36,10 @@ class ProfileImageViewController: UIViewController {
     func setCurrentImage(imageIndex idx: Int) {
         selectedCellIndex = idx
     }
+    
+    func setNavigationBarTitle(title: String) {
+        navigationTitle = title
+    }
 }
 
 // MARK: Custom UI
@@ -42,8 +47,6 @@ extension ProfileImageViewController {
     override func configureView() {
         super.configureView()
         
-        // TODO: 이전 화면에서 선택된 이미지로 세팅
-        print(selectedCellIndex)
         selectedImageView.image = list[selectedCellIndex]
         selectedImageView.contentMode = .scaleAspectFill
         selectedImageView.layer.borderWidth = 5
@@ -53,7 +56,7 @@ extension ProfileImageViewController {
     
     override func configureNavigationBar() {
         super.configureNavigationBar()
-        navigationItem.title = "프로필 수정"
+        navigationItem.title = navigationTitle
     }
     
     func configureCollectionView() {

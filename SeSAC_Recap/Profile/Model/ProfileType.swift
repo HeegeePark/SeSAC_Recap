@@ -11,10 +11,12 @@ enum ProfileType {
     case onboarding
     case setting
     
+    private static let randomIndex: Int  = Int.random(in: UIImage.Profile.range)
+    
     var profileImageIndex: Int {
         switch self {
         case .onboarding:
-            return Int.random(in: UIImage.Profile.range)
+            return ProfileType.randomIndex
         case .setting:
             return UserDefaultUtils.user.profileImageIndex
         }
