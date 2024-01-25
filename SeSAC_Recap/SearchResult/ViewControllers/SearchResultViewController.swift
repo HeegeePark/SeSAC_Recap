@@ -20,6 +20,8 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     
+    @IBOutlet var emptyLabel: UILabel!
+    
     var keyword: String = ""
     var items: [Item]? {
         didSet {
@@ -66,6 +68,13 @@ class SearchResultViewController: UIViewController {
             ShoppingAPI.start = 1
             ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { Shopping in
                 self.resultCountLabel.text = "\(Shopping.total.setComma()) 개의 검색 결과"
+                
+                // 검색 결과가 없다면
+                guard Shopping.total != 0 else {
+                    self.collectionView.isHidden = true
+                    return
+                }
+                
                 self.items = Shopping.items
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
@@ -114,6 +123,12 @@ extension SearchResultViewController: UICollectionViewControllerProtocol {
             button.contentEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 4)
             button.addTarget(self, action: #selector(sortedButtonClicked), for: .touchUpInside)
         }
+        
+        // 검색 결과 없을 때 띄울 레이블
+        emptyLabel.text = "검색 결과를 찾을 수 없어요."
+        emptyLabel.font = .sf15Bold
+        emptyLabel.textColor = .text
+        emptyLabel.textAlignment = .center
     }
     
     override func configureNavigationBar() {

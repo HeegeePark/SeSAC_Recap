@@ -14,7 +14,7 @@ class UserDefaultUtils {
     @UserDefault(key: "searchLogs", defaultValue: [])
     static var searchLogs: [SearchLog] {
         didSet {
-            keyOfsearchLogsSet = keyOfsearchLogsSet.union(Set(searchLogs.map { $0.keyword }))
+            keyOfsearchLogsSet = Set(searchLogs.map { $0.keyword })
             searchLogsHandler?()
         }
     }
