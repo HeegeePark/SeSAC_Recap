@@ -17,6 +17,7 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         
         configureView()
+        configureNavigationBar()
     }
     
     @objc func startButtonTapped() {
@@ -43,5 +44,10 @@ extension OnboardingViewController {
         startButton.backgroundColor = .point
         startButton.setCornerRadius()
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+    }
+    
+    override func configureNavigationBar() {
+        super.configureNavigationBar()
+        
     }
 }
