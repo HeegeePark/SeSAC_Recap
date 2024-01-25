@@ -31,7 +31,7 @@ class UserDefaultUtils {
         user = User(nickname: "", profileImageIndex: -1)
         searchLogs.removeAll()
         wishes.removeAll()
-    }
+    } 
 }
 
 @propertyWrapper
