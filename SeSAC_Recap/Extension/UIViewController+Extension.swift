@@ -100,11 +100,7 @@ extension UIViewController: UIViewControllerConfiguration {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white,
                                                                    .font: UIFont.sf19Bold]
-    }
-    
-    func setBackButtonInNavigationBar() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: SFSymbol.chevronLeft), style: .plain, target: self, action: #selector(popViewcontroller))
-        navigationItem.leftBarButtonItem = backButton
+        navigationItem.backButtonTitle = ""
     }
     
     func setKeyboardDismiss() {

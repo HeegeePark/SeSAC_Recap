@@ -66,8 +66,6 @@ extension SearchDetailViewController {
     override func configureNavigationBar() {
         super.configureNavigationBar()
         
-        setBackButtonInNavigationBar()
-        
         if let info = itemInfo {
             navigationItem.title = info.title
             

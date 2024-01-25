@@ -135,7 +135,6 @@ extension SearchResultViewController: UICollectionViewControllerProtocol {
         super.configureNavigationBar()
         
         navigationItem.title = keyword
-        setBackButtonInNavigationBar()
     }
     
     func configureCollectionView() {

@@ -110,8 +110,6 @@ extension ProfileViewController {
     override func configureNavigationBar() {
         super.configureNavigationBar()
         navigationItem.title = fromWhereType!.navigationItemTitle
-        
-        setBackButtonInNavigationBar()
     }
 }
 
