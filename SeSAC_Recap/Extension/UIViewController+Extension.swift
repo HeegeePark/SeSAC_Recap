@@ -97,7 +97,7 @@ extension UIViewController: UIViewControllerConfiguration {
     }
     
     func configureNavigationBar() {
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .text
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white,
                                                                    .font: UIFont.sf19Bold]
         navigationItem.backButtonTitle = ""
