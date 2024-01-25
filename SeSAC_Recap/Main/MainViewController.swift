@@ -25,6 +25,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // notification 권한 요청
+        NotificationManager.shared.setAuthorization()
+        
         showToast()
         configureView()
         configureNavigationBar()
