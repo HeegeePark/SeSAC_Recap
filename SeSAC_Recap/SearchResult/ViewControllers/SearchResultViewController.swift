@@ -69,31 +69,27 @@ class SearchResultViewController: UIViewController {
     }
     
     func fetchResultItems(sortingType: SortingType, fetchType: FetchType) {
-        switch fetchType {
-        case .search:
-            ShoppingAPI.start = 1
-            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
+        ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
+            // 검색 결과가 없다면
+            guard shopping.total != 0 else {
+                if fetchType == .search {
+                    self.resultTotalCount = shopping.total
+                    self.collectionView.isHidden = true
+                }
+                return
+            }
+            
+            switch fetchType {
+            case .search:
                 self.resultTotalCount = shopping.total
                                 
-                // 검색 결과가 없다면
-                guard shopping.total != 0 else {
-                    self.collectionView.isHidden = true
-                    return
-                }
-                
                 self.items = shopping.items
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            }
-         
-        case .append:
-            ShoppingAPI.start += 1
-            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
-                // 검색 결과가 없다면
-                guard shopping.total != 0 else { return }
                 
+            case .append:
                 self.items! += shopping.items
             }
-        } 
+        }
     }
     
     @objc func sortedButtonClicked(_ sender: UIButton) {
