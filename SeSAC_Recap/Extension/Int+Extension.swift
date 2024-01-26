@@ -12,10 +12,11 @@ extension Int {
         return CGFloat(self) / 255
     }
     
+    private static let numberFormatter = NumberFormatter()
+    
     // 숫자 포맷: 세자리수 콤마
     func setComma() -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(for: self) ?? "0"
+        Int.numberFormatter.numberStyle = .decimal
+        return Int.numberFormatter.string(for: self) ?? "0"
     }
 }
