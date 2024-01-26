@@ -10,7 +10,8 @@ import Alamofire
 
 class ShoppingAPI {
     static var start = 1
-    static var isEnd: Bool = !(1...100 ~= start)
+    static var paginationEnabled: Bool = pageRange ~= start
+    static var pageRange = 1...1000
     
     static func getShopping(keyword: String, sortingType: SortingType, fetchType: FetchType, _ completion: @escaping ((Shopping) -> Void)) {
         switch fetchType {

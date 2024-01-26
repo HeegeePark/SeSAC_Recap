@@ -29,6 +29,12 @@ class SearchResultViewController: UIViewController {
         }
     }
     
+    var resultTotalCount = 0 {
+        didSet {
+            self.resultCountLabel.text = "\(resultTotalCount.setComma()) 개의 검색 결과"
+        }
+    }
+    
     var currentSortedButtonIndex = 0 {
         didSet {
             for button in sortedButton {
@@ -66,23 +72,26 @@ class SearchResultViewController: UIViewController {
         switch fetchType {
         case .search:
             ShoppingAPI.start = 1
-            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { Shopping in
-                self.resultCountLabel.text = "\(Shopping.total.setComma()) 개의 검색 결과"
-                
+            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
+                self.resultTotalCount = shopping.total
+                                
                 // 검색 결과가 없다면
-                guard Shopping.total != 0 else {
+                guard shopping.total != 0 else {
                     self.collectionView.isHidden = true
                     return
                 }
                 
-                self.items = Shopping.items
+                self.items = shopping.items
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
          
         case .append:
             ShoppingAPI.start += 1
-            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { Shopping in
-                self.items! += Shopping.items
+            ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
+                // 검색 결과가 없다면
+                guard shopping.total != 0 else { return }
+                
+                self.items! += shopping.items
             }
         } 
     }
@@ -201,7 +210,8 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
         
         for item in indexPaths {
             if items!.count - 3 == item.row {
-                if !ShoppingAPI.isEnd {
+                guard items!.count < resultTotalCount else { return }
+                if ShoppingAPI.paginationEnabled  {
                     fetchResultItems(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .append)
                 }
             }
