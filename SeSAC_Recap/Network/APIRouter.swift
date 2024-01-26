@@ -35,13 +35,13 @@ class APIRouter {
         }
     }
     
-    var requestURL: String {
+    var requestURL: String? {
         var components = URLComponents(string: apiType.baseURL)!
         
         if let items = queryItems {
             components.queryItems = items
         }
         
-        return components.string!
+        return components.string
     }
 }

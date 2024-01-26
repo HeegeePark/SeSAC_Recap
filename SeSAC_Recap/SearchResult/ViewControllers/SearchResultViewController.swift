@@ -15,6 +15,7 @@ enum FetchType {
 class SearchResultViewController: UIViewController {
     
     
+    @IBOutlet var headerView: UIView!
     @IBOutlet var resultCountLabel: UILabel!
     @IBOutlet var sortedButton: [UIButton]!
     
@@ -69,25 +70,35 @@ class SearchResultViewController: UIViewController {
     }
     
     func fetchResultItems(sortingType: SortingType, fetchType: FetchType) {
-        ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { shopping in
-            // 검색 결과가 없다면
-            guard shopping.total != 0 else {
-                if fetchType == .search {
-                    self.resultTotalCount = shopping.total
-                    self.collectionView.isHidden = true
+        ShoppingAPI.getShopping(keyword: keyword, sortingType: sortingType, fetchType: fetchType) { result in
+            switch result {
+            case .success(let shopping):
+                // 검색 결과가 없다면
+                guard shopping.total != 0 else {
+                    if fetchType == .search {
+                        self.resultTotalCount = shopping.total
+                        self.collectionView.isHidden = true
+                    }
+                    return
                 }
-                return
-            }
-            
-            switch fetchType {
-            case .search:
-                self.resultTotalCount = shopping.total
-                                
-                self.items = shopping.items
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 
-            case .append:
-                self.items! += shopping.items
+                switch fetchType {
+                case .search:
+                    self.resultTotalCount = shopping.total
+                                    
+                    self.items = shopping.items
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    
+                case .append:
+                    self.items! += shopping.items
+                }
+                
+            case .failure(let error):
+                if fetchType == .search {
+                    self.headerView.isHidden = true
+                }
+                
+                self.presentAlert(alertInfo: Alert(title: nil, message: error.message, style: .alert, actions: [UIAlertAction(title: "확인", style: .default)]))
             }
         }
     }
