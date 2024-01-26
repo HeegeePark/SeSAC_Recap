@@ -47,7 +47,10 @@ class ProfileViewController: UIViewController {
     
     // 완료 버튼 탭했을 때
     @objc func doneButonTapped(_ sender: UIButton) {
-        UserDefaultUtils.user = User(nickname: nicknameTextField.text!, profileImageIndex: profileImageIndex)
+        // 문자열 앞 뒤로 공백 제거
+        let nickname = nicknameTextField.text?.trimmingCharacters(in: .whitespaces)
+        
+        UserDefaultUtils.user = User(nickname: nickname!, profileImageIndex: profileImageIndex)
         
         switch fromWhereType {
         case .onboarding:
@@ -145,6 +148,11 @@ extension ProfileViewController: CKTextFieldDelegate {
             if char.isNumber {
                 return (false, "닉네임에 숫자는 포함할 수 없어요")
             }
+        }
+        
+        // 공백만 있는 경우
+        if text.replacingOccurrences(of: " ", with: "") == "" {
+            return (false, "공백만 기입할 수 없어요")
         }
         
         doneButton.isEnabled = true
