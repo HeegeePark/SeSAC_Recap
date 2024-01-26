@@ -194,7 +194,6 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
             } else {
                 UserDefaultUtils.wishes.remove(item.productId)
             }
-            print(UserDefaultUtils.wishes)
         }
         
         return cell

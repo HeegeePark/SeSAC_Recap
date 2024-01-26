@@ -34,7 +34,6 @@ class SearchDetailViewController: UIViewController {
     
     func loadWebView() {
         if let info = itemInfo {
-            print(info.linkURL)
             let request = URLRequest(url: info.linkURL)
             
             webView.load(request)

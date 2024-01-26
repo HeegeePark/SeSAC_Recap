@@ -79,7 +79,11 @@ protocol CKTextFieldDelegate: AnyObject {
     private let activeBorderLayer = CALayer()
     private var activePlaceholderPoint: CGPoint = CGPoint.zero
     
-    // MARK: - functions
+}
+    
+// MARK: - functions
+
+extension CKTextField {
     
     // text 유효성에 따른 텍스트필드 반영
     private func updateByCondition() {
@@ -205,8 +209,11 @@ protocol CKTextFieldDelegate: AnyObject {
         
         activePlaceholderPoint = CGPoint(x: placeholderLabel.frame.origin.x, y: placeholderLabel.frame.origin.y + placeholderLabel.frame.size.height + placeholderInsets.y * 3)
     }
+}
     
-    // MARK: - Overrides
+// MARK: - Overrides
+
+extension CKTextField {
     
     override func awakeFromNib() {
         super.awakeFromNib()
