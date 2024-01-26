@@ -39,7 +39,9 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // 검색 후 돌아왔을 때 최근 검색어 테이블뷰 상단으로 올리기
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        if !tableViewArea.isHidden  {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
     
     func showToast() {
