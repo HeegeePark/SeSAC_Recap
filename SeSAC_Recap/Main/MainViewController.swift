@@ -35,6 +35,13 @@ class MainViewController: UIViewController {
         connetHandler()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 검색 후 돌아왔을 때 최근 검색어 테이블뷰 상단으로 올리기
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+    }
+    
     func showToast() {
         DeviceUtils.tabBarHeight = tabBarController!.tabBar.frame.size.height
         showToast(message: "\(UserDefaultUtils.user.nickname)님, 환영합니다. 🌱", font: .sf15)
