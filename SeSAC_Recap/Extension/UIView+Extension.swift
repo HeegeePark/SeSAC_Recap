@@ -12,6 +12,12 @@ extension UIView {
         self.layer.cornerRadius = style.cornerRadius
         self.layer.masksToBounds = true
     }
+    
+    func addSubviews(_ subviews: UIView...) {
+        for subview in subviews {
+            self.addSubview(subview)
+        }
+    }
 }
 
 enum CornerRoundStyle {

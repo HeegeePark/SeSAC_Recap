@@ -91,6 +91,12 @@ extension UIViewController {
 // MARK: - view Configuration 관련
 
 extension UIViewController: UIViewControllerConfiguration {
+    func configureHierarchy() {
+    }
+    
+    func setupConstraints() {
+    }
+    
     func configureView() {
         view.backgroundColor = .background
 

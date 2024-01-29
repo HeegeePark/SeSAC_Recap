@@ -9,6 +9,8 @@ import UIKit
 
 @objc
 protocol UIViewControllerConfiguration: AnyObject {
+    func configureHierarchy()
+    func setupConstraints()
     func configureView()
     @objc optional func configureNavigationBar()
     @objc optional func configureTableView()

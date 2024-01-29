@@ -6,21 +6,22 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainViewController: UIViewController {
     
-    @IBOutlet var searchBar: UISearchBar!
+    let searchBar = UISearchBar()
     
-    @IBOutlet var tableViewArea: UIView!
-    @IBOutlet var recentSearchLabel: UILabel!
-    @IBOutlet var clearRecentSearchButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    let tableViewArea = UIView()
+    let recentSearchLabel = UILabel()
+    let clearRecentSearchButton = UIButton()
+    let tableView = UITableView()
     
-    @IBOutlet var emptyView: UIView!
-    @IBOutlet var emptyImageView: UIImageView!
-    @IBOutlet var emptyLabel: UILabel!
+    let emptyView = UIView()
+    let emptyImageView = UIImageView()
+    let emptyLabel = UILabel()
     
-    @IBOutlet var keyboardDismissView: UIView!
+    let keyboardDismissView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +29,13 @@ class MainViewController: UIViewController {
         // notification 권한 요청
         NotificationManager.shared.setAuthorization()
         
-        showToast()
+        configureHierarchy()
+        setupConstraints()
         configureView()
         configureNavigationBar()
         configureTableView()
         connetHandler()
+        showToast()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,11 +92,72 @@ class MainViewController: UIViewController {
 
 // MARK: Custom UI
 extension MainViewController: UITableViewControllerProtocol {
+    override func configureHierarchy() {
+        super.configureHierarchy()
+        
+        view.addSubviews(searchBar, emptyView, keyboardDismissView, tableViewArea)
+        emptyView.addSubviews(emptyImageView, emptyLabel)
+        tableViewArea.addSubviews(recentSearchLabel, clearRecentSearchButton, tableView)
+        
+    }
+    
+    override func setupConstraints() {
+        super.setupConstraints()
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(44)
+        }
+        
+        keyboardDismissView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.width.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.7)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.width).multipliedBy(0.7 * (4 / 3))    // aspect ratio 4:3
+            make.center.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyImageView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.height.equalTo(emptyImageView.snp.width)
+        }
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyImageView.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        
+        tableViewArea.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        recentSearchLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(8)
+        }
+        
+        clearRecentSearchButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(8)
+            make.centerY.equalTo(recentSearchLabel)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(recentSearchLabel.snp.bottom).offset(16)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+    }
+    
     override func configureView() {
         super.configureView()
         
         // 서치바
         searchBar.placeholder = "브랜드, 상품, 프로필, 태그 등"
+        let searchBarImage = UIImage()  // 테두리 제거를 위한 백그라운드 이미지
+        searchBar.backgroundImage = searchBarImage
         searchBar.delegate = self
         
         // 테이블뷰 area
