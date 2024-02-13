@@ -16,14 +16,10 @@ enum DeviceUtils {
     }
     
     // 디바이스 width
-    static var width: CGFloat {
-        return UIScreen.main.bounds.width
-    }
+    static let width: CGFloat = UIScreen.main.bounds.width
     
     // 디바이스 height
-    static var height: CGFloat {
-        return UIScreen.main.bounds.height
-    }
+    static let height: CGFloat = UIScreen.main.bounds.height
     
     // TabBar height
     static var tabBarHeight: CGFloat = 80
