@@ -9,6 +9,9 @@ import Foundation
 import Alamofire
 
 class ShoppingAPI {
+    
+    private init() { }
+    
     typealias ShoppingResult = (Result<Shopping, NetworkError>) -> Void
     
     static var start = 1

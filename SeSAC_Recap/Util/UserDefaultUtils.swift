@@ -8,6 +8,9 @@
 import Foundation
 
 class UserDefaultUtils {
+    
+    private init() { }
+    
     @UserDefault(key: "user", defaultValue: User(nickname: "", profileImageIndex: -1))
     static var user: User
     
