@@ -59,4 +59,39 @@ class ShoppingAPI {
                 }
             }
     }
+    
+    static func request(keyword: String, sortingType: SortingType, fetchType: FetchType) async throws -> Shopping {
+        let router = APIRouter(apiType: .shopping(keyword: keyword, sortingType: sortingType, start: ShoppingAPI.start))
+        
+        guard let url = router.requestURL else {
+            throw NetworkError.invalidURL
+        }
+        
+        let request = AF.request(url, method: .get, headers: router.headers).validate(statusCode: 200..<300)
+        let dataTask = request.serializingDecodable(Shopping.self)
+        
+        switch await dataTask.result {
+        case .success(let shopping):
+            return shopping
+        
+        case.failure(let error):
+            if let data = await dataTask.response.data {
+                do {
+                    let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                    print("Error Code: \(errorResponse.errorCode)")
+                    print("Error Message: \(errorResponse.errorMessage)")
+                    
+                    guard let networkError: NetworkError = .init(rawValue: errorResponse.errorCode) else {
+                        throw NetworkError.decodingErrorFail
+                    }
+                    throw networkError
+                    
+                } catch {
+                    print("Error decoding error response: \(error)")
+                    throw NetworkError.decodingErrorFail
+                }
+            }
+            throw NetworkError.decodingErrorFail
+        }
+    }
 }

@@ -57,7 +57,8 @@ class SearchResultViewController: UIViewController {
         configureNavigationBar()
         configureCollectionView()
         
-        fetchResultItems(sortingType: .sim, fetchType: .search)
+//        fetchResultItems(sortingType: .sim, fetchType: .search)
+        fetchByAsyncAwait(sortingType: .sim, fetchType: .search)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,10 +104,37 @@ class SearchResultViewController: UIViewController {
         }
     }
     
+    func fetchByAsyncAwait(sortingType: SortingType, fetchType: FetchType) {
+        Task {
+            let result = try await ShoppingAPI.request(keyword: keyword, sortingType: sortingType, fetchType: fetchType)
+            
+            // 검색 결과가 없다면
+            guard result.total != 0 else {
+                if fetchType == .search {
+                    self.resultTotalCount = result.total
+                    self.collectionView.isHidden = true
+                }
+                return
+            }
+            
+            switch fetchType {
+            case .search:
+                self.resultTotalCount = result.total
+                                
+                self.items = result.items
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                
+            case .append:
+                self.items! += result.items
+            }
+        }
+    }
+    
     @objc func sortedButtonClicked(_ sender: UIButton) {
         currentSortedButtonIndex = sender.tag
         
-        fetchResultItems(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .search)
+//        fetchResultItems(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .search)
+        fetchByAsyncAwait(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .search)
     }
 
 }
@@ -218,7 +246,8 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
             if items!.count - 3 == item.row {
                 guard items!.count < resultTotalCount else { return }
                 if ShoppingAPI.paginationEnabled  {
-                    fetchResultItems(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .append)
+//                    fetchResultItems(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .append)
+                    fetchByAsyncAwait(sortingType: SortingType.allCases[currentSortedButtonIndex], fetchType: .append)
                 }
             }
         }
